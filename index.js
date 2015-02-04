@@ -265,7 +265,12 @@ MetaInspector.prototype.fetch = function(){
 	var self = this;
 	var totalChunks = 0;
 
-	var r = request({uri : this.url}, function(error, response, body){
+	// lets fake an user agents, as some sites does not reply on http requests with no user agent set.
+	var headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:24.0) Gecko/20100101 Firefox/24.0'
+    };
+
+	var r = request({uri : this.url, headers: headers}, function(error, response, body){
 		if(!error && response.statusCode === 200){
 			self.document = body;
 			self.parsedDocument = cheerio.load(body);
