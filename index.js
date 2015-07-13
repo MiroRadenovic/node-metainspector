@@ -271,7 +271,7 @@ MetaInspector.prototype.fetch = function(){
     };
 
 	var r = request({uri : this.url, headers: headers}, function(error, response, body){
-		if(!error && response.statusCode === 200){
+		if(!error && (response.statusCode === 200 || response.statusCode === 429)){
 			self.document = body;
 			self.parsedDocument = cheerio.load(body);
 			self.response = response;
